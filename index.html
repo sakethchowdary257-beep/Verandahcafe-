@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verandah Coffee Roasters</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0b0b0b;
+    color:white;
+    scroll-behavior:smooth;
+}
+
+/* NAVBAR */
+header {
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:15px 30px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+nav a {
+    margin:0 15px;
+    text-decoration:none;
+    color:white;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero {
+    height:100vh;
+    background:url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb') center/cover fixed;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1 {
+    font-size:55px;
+    letter-spacing:3px;
+}
+
+.btn {
+    margin-top:20px;
+    padding:12px 25px;
+    background:#c8a96a;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+/* SECTIONS */
+.section {
+    padding:100px 20px;
+    max-width:1100px;
+    margin:auto;
+    opacity:0;
+    transform:translateY(50px);
+    transition:0.6s;
+}
+
+.section.show {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* MENU */
+.menu-buttons {
+    text-align:center;
+}
+
+.menu-buttons button {
+    margin:5px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#1a1a1a;
+    color:white;
+    cursor:pointer;
+}
+
+.menu-buttons button.active {
+    background:#c8a96a;
+    color:black;
+}
+
+.menu-grid {
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card {
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    transition:0.3s;
+}
+
+.card:hover {
+    transform:translateY(-8px);
+}
+
+.price {
+    color:#c8a96a;
+}
+
+/* IMAGE STRIP */
+.strip {
+    height:300px;
+    background:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085') center/cover;
+    margin:60px 0;
+}
+
+/* REVIEWS */
+.review {
+    background:#1a1a1a;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:40px;
+    background:#111;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>VERANDAH</h2>
+    <nav>
+        <a href="#menu">Menu</a>
+        <a href="#experience">Experience</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#visit">Visit</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>VERANDAH</h1>
+    <p>Where Vijayawada slows down over coffee</p>
+    <button class="btn" onclick="scrollToMenu()">Explore Menu</button>
+</div>
+
+<!-- MENU -->
+<div class="section" id="menu">
+    <h2>Menu</h2>
+
+    <div class="menu-buttons">
+        <button class="active" onclick="loadMenu('popular',this)">Popular</button>
+        <button onclick="loadMenu('coffee',this)">Coffee</button>
+        <button onclick="loadMenu('food',this)">Food</button>
+        <button onclick="loadMenu('desserts',this)">Desserts</button>
+    </div>
+
+    <div id="menu-content" class="menu-grid"></div>
+</div>
+
+<div class="strip"></div>
+
+<!-- EXPERIENCE -->
+<div class="section" id="experience">
+    <h2>The Experience</h2>
+    <p>
+        A home turned into a café — Verandah blends elegance with comfort.
+        Spacious seating, warm lighting, and a vibe that keeps people coming back.
+    </p>
+</div>
+
+<!-- REVIEWS -->
+<div class="section" id="reviews">
+    <h2>4.7 ⭐ from 5,000+ people</h2>
+
+    <div class="review">“Feels like a home turned café.”</div>
+    <div class="review">“Amazing food and ambience.”</div>
+    <div class="review">“Best coffee spot in Vijayawada.”</div>
+</div>
+
+<!-- VISIT -->
+<div class="section" id="visit">
+    <h2>Visit Us</h2>
+    <p>Guru Nanak Colony, Vijayawada</p>
+
+    <button class="btn" onclick="openMap()">Open in Google Maps</button>
+
+    <iframe 
+    src="https://maps.google.com/maps?q=Verandah%20Coffee%20Roasters%20Vijayawada&t=&z=15&output=embed"
+    width="100%" height="300"></iframe>
+</div>
+
+<footer>
+    <p>© Verandah Coffee Roasters</p>
+</footer>
+
+<script>
+const menuData = {
+    popular:[
+        {name:"Crispy Chicken",price:"₹300"},
+        {name:"Irish Cappuccino",price:"₹180"},
+        {name:"Blueberry Cheesecake",price:"₹220"}
+    ],
+    coffee:[
+        {name:"Hot Chocolate",price:"₹200"},
+        {name:"Irish Cappuccino",price:"₹180"}
+    ],
+    food:[
+        {name:"White Sauce Pasta",price:"₹300"},
+        {name:"Chilly Chicken",price:"₹320"}
+    ],
+    desserts:[
+        {name:"Walnut Brownie Ice Cream",price:"₹220"}
+    ]
+};
+
+function loadMenu(type,btn){
+    let container=document.getElementById("menu-content");
+    container.innerHTML="";
+
+    menuData[type].forEach(item=>{
+        container.innerHTML+=`
+        <div class="card">
+            <h3>${item.name}</h3>
+            <p class="price">${item.price}</p>
+        </div>`;
+    });
+
+    document.querySelectorAll(".menu-buttons button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+}
+
+function scrollToMenu(){
+    document.getElementById("menu").scrollIntoView();
+}
+
+function openMap(){
+    window.open("https://www.google.com/maps/search/?api=1&query=Verandah+Coffee+Roasters+Vijayawada");
+}
+
+// ANIMATION
+window.addEventListener("scroll",()=>{
+    document.querySelectorAll(".section").forEach(sec=>{
+        let pos=sec.getBoundingClientRect().top;
+        if(pos<window.innerHeight-100){
+            sec.classList.add("show");
+        }
+    });
+});
+
+loadMenu("popular", document.querySelector(".menu-buttons button"));
+</script>
+
+</body>
+</html>
+<img src="images/menu1.jpg">
