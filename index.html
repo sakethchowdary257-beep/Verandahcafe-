@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verandah Coffee Roasters</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0e0e0e;
+    color:white;
+}
+
+/* HERO */
+.hero {
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(rgba(0,0,0,0.6),black);
+}
+
+.hero h1 {
+    font-size:48px;
+    letter-spacing:2px;
+}
+
+.hero p {
+    color:#bbb;
+    max-width:500px;
+}
+
+.btn {
+    margin-top:20px;
+    padding:12px 25px;
+    background:#c8a96a;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+/* SECTION */
+.section {
+    padding:80px 20px;
+    max-width:1100px;
+    margin:auto;
+}
+
+/* MENU */
+.menu-tabs button {
+    margin:5px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#1a1a1a;
+    color:white;
+    cursor:pointer;
+}
+
+.menu-tabs button.active {
+    background:#c8a96a;
+    color:black;
+}
+
+.menu-grid {
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card {
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.card:hover {
+    transform:translateY(-5px);
+}
+
+.price {
+    color:#c8a96a;
+}
+
+/* STORY */
+.story {
+    color:#ccc;
+    line-height:1.7;
+}
+
+/* REVIEWS */
+.review {
+    background:#1a1a1a;
+    padding:15px;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+/* FOOTER */
+footer {
+    text-align:center;
+    padding:40px;
+    background:#111;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>VERANDAH</h1>
+    <p>
+        A home turned into a café — where coffee, comfort,
+        and conversations come together in Vijayawada.
+    </p>
+    <button class="btn" onclick="scrollToMenu()">Explore Menu</button>
+</div>
+
+<!-- MENU -->
+<div class="section" id="menu">
+    <h2>Our Menu</h2>
+
+    <div class="menu-tabs">
+        <button class="menu-btn active" data-menu="popular">Popular</button>
+        <button class="menu-btn" data-menu="coffee">Coffee</button>
+        <button class="menu-btn" data-menu="food">Food</button>
+        <button class="menu-btn" data-menu="desserts">Desserts</button>
+    </div>
+
+    <div id="menu-content" class="menu-grid"></div>
+</div>
+
+<!-- STORY -->
+<div class="section">
+    <h2>The Verandah Story</h2>
+    <p class="story">
+        What started as a simple home has transformed into one of Vijayawada’s
+        most loved café spaces. At Verandah, every corner feels familiar,
+        every cup feels crafted, and every visit feels like time well spent.
+        <br><br>
+        Known for its elegant yet cozy ambience, Verandah blends
+        premium coffee with comfort food — from rich pastas to indulgent desserts.
+        It’s where people come not just to eat, but to slow down.
+    </p>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section">
+    <h2>Why People Love It</h2>
+    <p class="story">
+        ⭐ 4.7 rating from 5,000+ people<br><br>
+        Guests love the cozy home-like interiors, friendly service,
+        and consistent quality of food and coffee.
+        Whether it’s a casual meet, date, or work session —
+        Verandah fits perfectly.
+    </p>
+</div>
+
+<!-- REVIEWS -->
+<div class="section">
+    <h2>What People Say</h2>
+
+    <div class="review">“Best cheesy fries and amazing ambience.”</div>
+    <div class="review">“Feels like a home converted into a café.”</div>
+    <div class="review">“Great coffee and really good service.”</div>
+</div>
+
+<!-- LOCATION -->
+<div class="section">
+    <h2>Visit Us</h2>
+    <p>Road No.1, Guru Nanak Colony, Vijayawada</p>
+
+    <button class="btn" onclick="openMap()">Open in Google Maps</button>
+
+    <button class="btn" onclick="openWhatsApp()">Contact on WhatsApp</button>
+
+    <iframe 
+    src="https://maps.google.com/maps?q=Verandah%20Coffee%20Roasters%20Vijayawada&t=&z=15&output=embed"
+    width="100%" height="300"></iframe>
+</div>
+
+<footer>
+    <p>© Verandah Coffee Roasters</p>
+</footer>
+
+<script>
+
+// MENU DATA
+const menuData = {
+    popular: [
+        {name:"Crispy Chicken",price:"₹300"},
+        {name:"Irish Cappuccino",price:"₹180"},
+        {name:"Blueberry Cheesecake",price:"₹220"},
+        {name:"Virgin Mojito",price:"₹180"}
+    ],
+    coffee: [
+        {name:"Irish Cappuccino",price:"₹180"},
+        {name:"Hot Chocolate",price:"₹200"}
+    ],
+    food: [
+        {name:"White Sauce Pasta",price:"₹300"},
+        {name:"Chilly Chicken",price:"₹320"},
+        {name:"Shakshuka",price:"₹280"}
+    ],
+    desserts: [
+        {name:"Walnut Brownie Ice Cream",price:"₹220"},
+        {name:"Flourless Brownie",price:"₹200"}
+    ]
+};
+
+// LOAD MENU
+function loadMenu(type){
+    const container=document.getElementById("menu-content");
+    container.innerHTML="";
+
+    menuData[type].forEach(item=>{
+        container.innerHTML+=`
+        <div class="card">
+            <h3>${item.name}</h3>
+            <p class="price">${item.price}</p>
+        </div>`;
+    });
+}
+
+// MENU SWITCH
+document.querySelectorAll(".menu-btn").forEach(btn=>{
+    btn.addEventListener("click",function(){
+        document.querySelectorAll(".menu-btn").forEach(b=>b.classList.remove("active"));
+        this.classList.add("active");
+        loadMenu(this.dataset.menu);
+    });
+});
+
+// BUTTONS
+function scrollToMenu(){
+    document.getElementById("menu").scrollIntoView({behavior:"smooth"});
+}
+
+function openMap(){
+    window.open("https://www.google.com/maps/search/?api=1&query=Verandah+Coffee+Roasters+Vijayawada");
+}
+
+function openWhatsApp(){
+    window.open("https://wa.me/918179257535");
+}
+
+// DEFAULT
+loadMenu("popular");
+
+</script>
+
+</body>
+</html>
